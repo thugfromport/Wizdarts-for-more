@@ -63,7 +63,7 @@ keys.appendChild(b);
 function speak(text){
 speechSynthesis.cancel();
 let voice=new SpeechSynthesisUtterance(text);
-voice.lang="en-GB";
+voice.lang="el-GR";
 voice.rate=0.85;
 speechSynthesis.speak(voice);
 }
@@ -87,7 +87,27 @@ return;
 history.push(remaining);
 remaining-=n;
 display.textContent=remaining;
-let call=remaining===0?"Game shot!":words(n);
+
+let calls = {
+  100: "Έπιασες εκατό!",
+  26: "Καφενές!",
+  180: "WIZPOINTS!",
+  33: "Τα χρόνια του Ιησού!",
+  22: "Τα παπιράκια!"
+};
+
+let call;
+
+if (remaining === 0) {
+  call = "Game shot!";
+} else if (calls[n]) {
+  call = calls[n];
+} else if (n > 0 && n % 10 === 0) {
+  call = "Στρογγυλός " + n.toLocaleString("el-GR");
+} else {
+  call = n.toLocaleString("el-GR");
+}
+
 message.textContent=call.toUpperCase();
 speak(call);
 entry.value="";
